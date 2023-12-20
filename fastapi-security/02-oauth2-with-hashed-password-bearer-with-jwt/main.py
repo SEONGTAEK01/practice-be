@@ -107,7 +107,7 @@ def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]) -> UserInDB:
 
     try:
         # 토큰을 디코드 한 후 username 을 가져온다.
-        payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
+        payload: dict = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
         username: str = payload.get("sub")
         if username is None:
             raise credential_exception
@@ -123,7 +123,7 @@ def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]) -> UserInDB:
     # Exception 을 추가한다. (유저가 없는경우 / 토큰에 유저 데이터가 없는 경우)
 
 
-def get_current_active_user(current_user: Annotated[User, Depends(get_current_user)]):
+def get_current_active_user(current_user: Annotated[User, Depends(get_current_user)]) -> User:
     # 액티브가 아니면 '비활성화 유저 입니다.' 를 리턴한다
     if current_user.disabled:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
@@ -133,7 +133,7 @@ def get_current_active_user(current_user: Annotated[User, Depends(get_current_us
 
 # 토큰 라우터
 @app.post("/token", response_model=Token)
-async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
+async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]) -> dict[str, str]:
     # 유저 존재여부 확인 (Authentication)
     user = authenticate_user(fake_users_db, form_data.username, form_data.password)
     if not user:
@@ -148,7 +148,7 @@ async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm,
 
 
 @app.get("/users/me", response_model=User)
-async def read_users_me(current_user: Annotated[User, Depends(get_current_active_user)]):
+async def read_users_me(current_user: Annotated[User, Depends(get_current_active_user)]) -> User:
     # 토큰을 통해 유저 정보를 읽는다.
     return current_user
 
