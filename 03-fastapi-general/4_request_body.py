@@ -1,5 +1,5 @@
 # Request body?
-# - path parameter, query parameter 는 URL 에 어떤 데이터가 전송되는지 보여진다. 이와 다르게 body 의 정보는 감춰진다.
+# - path parameter, query parameter 는 URL 에 어떤 데이터가 전송되는지 보여진다. 이와 다르게 request body 의 정보는 감춰진다.
 # - FastAPI 에서는 request body 를 만들기 위해 pydantic model 을 사용한다.
 # - pydantic model 은 모델의 파싱과 validation 을 위한 라이브러리 이다.
 import uvicorn

@@ -67,12 +67,12 @@ async def read_items_metadata_test(query_param: str = Query(None, title="Title",
 
 
 # alias 추가하기
-# - 원래 'item-query' 는 파이썬에서 변수로 쓸 수 없다. 하지만 'alias' 를 통해 'item-query' 로 리퀘스트를 보낼 수 있게 만든다.
+# - 원래 'item-query' 는 dash ('-') 때문에 파이썬에서 변수로 쓸 수 없다.
+# 하지만 'alias' 를 통해 'item-query' 로 리퀘스트를 보낼 수 있게 만든다.
 # curl -X 'GET' \
 #   'http://localhost:8000/items?item-query=1' \
 #   -H 'accept: application/json'
-
-# * 'title' 은 '/redoc' 에서 쓰인다. Swagger 에서는 'description' 을 사용한다.
+# * 'title' 은 '/redoc' 에서 볼 수 있었다. Swagger 에서는 'description' 을 사용한다. title 은 어디서 확인하지?
 @app.get("/items")
 async def read_items_metadata_test(
         query_param: str = Query(None, title="Title", description="쿼리 스트링 설명", alias="item-query", deprecated=True)):

@@ -1,5 +1,5 @@
 # API 사용자가 쉽게 예제 데이터를 확인할 수 있도록 예시 데이터를 보여줄 수 있다. 방법은 여러가지가 있다.
-# - class Config 사용
+# - class Config 사용 (Pydantic v1)
 # - Field(..., example=value) 사용
 # - Body 에 직접 example={} 사용
 # - Body 에 직접 examples={ {"normal": {}}, {"converted":{}}, {"invalid":{}} } 사용
@@ -31,6 +31,7 @@ app = FastAPI()
 #         "json_schema_extra": {"examples": [{"name": "Cafe con leche", "description": "에스프레소 + 우유", "price": 3.0}]}}
 
 # 2. Field(example=) 을 사용
+# - 이 방법이 가독성이 좋다.
 class Item(BaseModel):
     name: str = Field(..., example="Cafe con Leche")
     description: str = Field(..., example="에스프레소 + Steamed 우유")
@@ -45,7 +46,7 @@ class Item(BaseModel):
 
 
 # 3. Body(example=) or Body(examples=[]) 를 사용
-# - 우선순위는 (model 의 Body(example=) > Field(default=) > Field(example=) 순이다.
+# - 우선순위는 (라우터 인자의 Body(example=) > Field(default=) > Field(example=) 순이다.
 @app.put("/items/{item_id}")
 async def update_item(item_id: int,
                       item: Item = Body(...,

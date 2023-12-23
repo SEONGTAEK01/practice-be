@@ -10,8 +10,9 @@ app = FastAPI()
 class Image(BaseModel):
     # url: str
 
-    # 일반 str type 이 아닌 pydantic type 을 지정해 줄 수 있다. Annotated[Url, UrlConstraints] 로 구성되어 있음. 'http' or
-    # 'https' url 만 request body 에 실을 수 있다.
+    # 'HttpUrl'
+    # 일반 str type 이 아닌 pydantic type 을 지정해 줄 수 있다. Annotated[Url, UrlConstraints] 로 구성되어 있음.
+    # 'http' or 'https' url 만 request body 에 실을 수 있다.
     url: HttpUrl
 
     description: str = ""
@@ -23,7 +24,7 @@ class Item(BaseModel):
     description: str | None = Field(..., title="메뉴 설명")
 
     tags: list[str | int] = Field([], title="중복 허용 태그")  # tags 가 가질 타입 (list) 와 list 의 타입 (str or int) 를 명시적으로 지정할 수 있다.
-    no_duplication_tags: set[str] = Field(set(), description="중복 tag 가 들어오면 제거하도록 설계된 tag")
+    no_duplication_tags: set[str] = Field(set(), description="set() 을 사용해 중복 tag 가 들어오면 제거하도록 설계된 tag")
 
     # image: Image | None = None  # 모델은 다른 모델 안에 nested 될 수 있다.
     images: list[Image] = Field([], description="복수 image 를 담는 리스트형 필드")
@@ -36,7 +37,7 @@ async def update_item(item_id: int, item: Item = Body(..., embed=True)):
     return results
 
 
-# 중첩 nested 도 가능하다.
+# 중첩 nested 도 가능하다. (Offer model 안에 Item model 을 사용하고 있다.)
 class Offer(BaseModel):
     description: str | None = Field(None, description="오퍼 설명")
     name: str

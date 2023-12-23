@@ -52,6 +52,7 @@ async def update_item(item_id: int, item: Item, user: User, importance: object =
 
 # 단일 request body 에 키 값 부여하기
 # - FastAPI 에서는 request body 가 1개인 경우 키 값을 부여하지 않는다. 키 값을 부여하고 싶으면 Body() 에 embed=True option 을 준다.
+# - Swagger 의 request body 부분에 키 값이 추가된 것을 볼 수 있다.
 ## embed=True
 # {
 #   "item": {
