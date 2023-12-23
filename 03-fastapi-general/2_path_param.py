@@ -17,4 +17,4 @@ async def read_user(user_id: str):
 
 
 if __name__ == "__main__":
-    uvicorn.run("path_param:app", host="localhost", port=8000, reload=True)
+    uvicorn.run("2_path_param:app", host="localhost", port=8000, reload=True)

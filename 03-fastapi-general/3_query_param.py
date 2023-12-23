@@ -79,4 +79,4 @@ async def read_item_type_conversion(item_id: str, q: Optional[str] = None, short
 # - 필터 / 서치 / 정렬 / Pagination
 
 if __name__ == "__main__":
-    uvicorn.run("query_param:app", host="localhost", port=8000, reload=True)
+    uvicorn.run("3_query_param:app", host="localhost", port=8000, reload=True)

@@ -27,4 +27,4 @@ async def get_cafe_menu_detail(cafe_menu: MenuDetail):
 
 
 if __name__ == "__main__":
-    uvicorn.run("string_enum:app", host="localhost", port=8000, reload=True)
+    uvicorn.run("1_string_enum:app", host="localhost", port=8000, reload=True)
