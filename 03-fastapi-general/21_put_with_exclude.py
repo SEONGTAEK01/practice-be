@@ -39,7 +39,7 @@ async def update_item(item_id: str, item: Item):
     # - 기존 데이터를 DB 에서 가져온다.
     # - 가져온 데이터를 모델화 한다.
     # - 요청한 데이터를 dict 화 한다. (exclude_unset=True 활용)
-    # - DB 에서 가져온 데이터를 요청한 데이터로 덮어쓴다.
+    # - DB 에서 가져온 데이터를 요청 받은 데이터로 덮어쓴다.
     # - DB 에 저장가능한 형태로 convert 하기 위해 jsonable_encoder() 사용한 후 DB 에 저장한다.
     # - updated item model 을 리턴한다.
     stored_item = items[item_id]
