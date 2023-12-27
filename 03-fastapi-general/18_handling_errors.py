@@ -1,7 +1,9 @@
 import uvicorn
-from fastapi import FastAPI, HTTPException
-from fastapi.exceptions import RequestValidationError
+from fastapi import FastAPI
+from fastapi.exception_handlers import http_exception_handler
+from fastapi.exceptions import RequestValidationError, HTTPException
 from starlette import status
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.requests import Request
 from starlette.responses import JSONResponse, PlainTextResponse
 
@@ -21,8 +23,8 @@ async def read_item(item_id: str):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail="Not found",
                             headers={
-                                "X-Error": "There goes my error!"})  # Response header 에 커스텀 헤더를 넣을 수도 있다. 보안상의 이유로
-        # 필요할 때가 있다고 함.
+                                "X-Error": "There goes my error!"})
+        # Response header 에 커스텀 헤더를 넣을 수도 있다. 보안상의 이유로 필요할 때가 있다고 함.
     return {"item": items[item_id]}
 
 
@@ -68,6 +70,11 @@ async def read_unicorn(name: str):
     if name == "무야무야":
         raise RequestValidationError(errors={"msg": f"I don't like {name}"})
     return {"unicorn_name": name}
+
+# FastAPI 의 기본 exception handler 를 사용할 수도 있다.
+@app.exception_handler(StarletteHTTPException)
+async def starlette_http_exception_handler(request: Request, exc: StarletteHTTPException):
+    return await http_exception_handler(request, exc)
 
 
 if __name__ == "__main__":
