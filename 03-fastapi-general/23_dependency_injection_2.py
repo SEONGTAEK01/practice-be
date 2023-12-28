@@ -7,7 +7,7 @@ app = FastAPI()
 
 # <Sub Dependency>
 # - 원하는 만큼 여러개의 sub dependency 를 생성할 수 있다.
-# - 여기서는 query 또는 cookie extractor depenency 를 만들어 보자.
+# - 여기서는 query 또는 cookie extractor dependency 를 만들어 보자.
 # - query param 이 존재하면 q 를 리턴하고, 그렇지 않으면 Cookie() 를 리턴한다.
 
 def query_extractor(q: str | None = None):
@@ -26,7 +26,7 @@ async def read_items(query_or_cookie=Depends(query_or_cookie_extractor)):
 
 
 # <Path Operation DI>
-# - 만약 리턴값이 필요하지 않고 반드시 실행은 해야한다면 Path operation decorator 에 dependency 를 걸어주면 된다.
+# - 만약 리턴값이 필요하지 않고 반드시 실행은 해야 한다면 Path operation decorator 에 dependency 를 걸어주면 된다.
 # - 사용방법은 데코레이터에 'dependencies=[Depends(), Depends()]' 형태로 넣어주면 된다.
 def verify_token(x_token: str = Header(...)):
     if x_token != "fake-super-secret-token":

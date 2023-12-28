@@ -26,12 +26,12 @@ async def update_item(id: str, item: Item):
     json_compatible_item_data = jsonable_encoder(item)
 
     model_dumped_item_data = item.model_dump()
-    jsonalized_item_data = item.model_dump_json()
+    jsonized_item_data = item.model_dump_json()
 
     # json_dumped_item_data = json.dump(item)
     # json_dumpsed_item_data = json.dumps(item)
 
-    fake_db[id] = jsonalized_item_data
+    fake_db[id] = jsonized_item_data
     return fake_db
 
 

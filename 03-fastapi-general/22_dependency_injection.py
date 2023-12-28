@@ -23,7 +23,7 @@ async def read_users(commons: dict = Depends(common_parameters)):
 
 
 # <Depends 에 클래스 사용>
-# - Depends() 의 인자로 올 수 이는 것은 callable 이므로 클래스도 인자로 올 수 있다는 뜻이 된다.
+# - Depends() 의 인자로 올 수 이는 것은 callable 이므로 __init__ 을 포함한 클래스 생성자도 인자로 올 수 있다는 뜻이 된다.
 # - 클래스의 장점을 그대로 활용할 수 있다. (메서드, 추가변수)
 # - IDE 에서 자동완성을 해주는 편리함이 있다.
 fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]

@@ -1,7 +1,7 @@
 # <put w/ 'exclude_unset'>
 # - put 은 model 전체를 업데이트 하는 것인데 요청에 일부 필드가 없다면 어떻게 업데이트가 될까?
 # - model 에 디폴트 값이 있다면 그 값으로 업데이트가 된다.
-# - 따라서 missing 필드가 없도록 하거나, 해당 필드를 'exclude_unset' 시켜야 한다.
+# - 따라서 missing 필드가 없도록 하거나, model_dump() 시에 해당 필드를 'exclude_unset' 시켜야 한다.
 from typing import Any
 
 import uvicorn
@@ -30,7 +30,7 @@ app = FastAPI()
 # put w/o 'tax' field
 @app.put("/items/{item_id}")
 async def update_item(item_id: str, item: Item):
-    # 일단 tax 필드 없이 업데이트 해보자.
+    # 일단 exclude_unset=False 로 업데이트 해보자.
     # - 결과: 'tax' 필드에 model default 값인 10.5 가 의도치 않게 들어가 버린다. exclude_unset 지정하자.
     # input = item.model_dump(exclude_unset=True)
     # items[id] = Item(**input)
