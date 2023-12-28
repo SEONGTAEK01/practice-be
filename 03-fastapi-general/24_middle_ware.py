@@ -23,7 +23,7 @@ app = FastAPI()
 
 
 # <CORS Middleware>
-# - CORS 는 Cross Origin Resource Sharing 이다. 서로다른 리소스 간의 공유여부를 설정하는 부분이다.
+# - CORS 는 Cross Origin Resource Sharing 이다. 서로 다른 리소스 간의 공유여부를 설정하는 부분이다.
 # - Origin 이란 뭘까? protocol (http/https) + domain (myapp.com/localhost) + port(80/8080) 3가지의 조합을 의미한다.
 # - 따라서 3개 중 1개라도 다르면 다른 출처이다.
 # - e.g.) http://localhost, https:/localhost, http://localhost:8080 은 모두 다른 출처이다.
