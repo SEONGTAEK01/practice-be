@@ -45,3 +45,6 @@ build/
 .python-version*
 .Python-version
 
+# Database
+03-fastapi-general/25_database/docker/database/data/
+
